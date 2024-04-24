@@ -19,11 +19,11 @@ class BatteryInfoPopup(wx.Frame):
         self.secsleft_label = wx.StaticText(self.panel, label="Approx time remaining: ")
         self.power_plugged_label = wx.StaticText(self.panel, label="Is power cable connected: ")
 
-        font = wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)  # Create a font object
-        font.SetFaceName("Helvetica")  # Set the font face to Helvetica
-        self.percent_label.SetFont(font)  # Set the font for the percent label
-        self.secsleft_label.SetFont(font)  # Set the font for the secsleft label
-        self.power_plugged_label.SetFont(font)  # Set the font for the power_plugged label
+        font = wx.Font(10, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)  
+        font.SetFaceName("Helvetica") 
+        self.percent_label.SetFont(font) 
+        self.secsleft_label.SetFont(font) 
+        self.power_plugged_label.SetFont(font)  
 
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.Add(self.percent_label, 0, wx.ALL, 5)
