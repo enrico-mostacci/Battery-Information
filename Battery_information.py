@@ -1,4 +1,3 @@
-from gc import get_threshold
 import wx
 import psutil
 import winsound
