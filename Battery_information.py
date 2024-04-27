@@ -5,8 +5,10 @@ import winsound
 class BatteryInfoPopup(wx.Frame):
     def __init__(self, parent, title):
         super(BatteryInfoPopup, self).__init__(parent, title=title, size=(350, 200))
+        self.timer = wx.Timer(self)  # Create a timer
+        self.Bind(wx.EVT_TIMER, self.update, self.timer)  # Bind the timer event
+        self.timer.Start(3000)  # Start the timer with an interval
         self.initUI()
-        self.update(None)
         self.Show()
         
     def initUI(self):
@@ -46,17 +48,14 @@ class BatteryInfoPopup(wx.Frame):
         self.panel.SetSizer(vbox) 
          
     def update(self, event=None):
-            self.timer = wx.Timer(self)  # Create a timer
-            self.Bind(wx.EVT_TIMER, self.update, self.timer)  # Bind the timer event
-            self.timer.Start(2500)  # Start the timer with an interval
             self.update_battery_status()
             self.on_button_click()
             self.on_button_toggle()
-
+ 
     def on_button_toggle(self, event=None):
         label = "WARNING: QUACK MUTED!" if not self.button.GetValue() == True else "Stop quacking, Sir"
         self.button.SetLabel(label)
- 
+
     def update_battery_status(self, event=None):
         battery_status = psutil.sensors_battery()
         self.percent_label.SetLabel("Percentage of battery: %s%%" % battery_status.percent)
@@ -82,7 +81,7 @@ class BatteryInfoPopup(wx.Frame):
         is_below = int(battery_status.percent) < threshold
 
         if is_below and is_unplugged and is_button_checked:
-            winsound.PlaySound("C:/Users/Enrico/Desktop/quack_5.wav", winsound.SND_ASYNC)
+            winsound.PlaySound("C:/Users/Enrico/Desktop/quack_5.wav", winsound.SND_ASYNC)   
             self.percent_label.SetForegroundColour(wx.Colour(255, 0, 0))
         elif (is_below and is_unplugged and not is_button_checked) or battery_status.power_plugged:
             winsound.PlaySound(None, winsound.SND_PURGE)
